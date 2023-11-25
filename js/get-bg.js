@@ -4,7 +4,7 @@ export async function generateBg() {
   const definitlyNotSecretApiKey =
     'ejysjaxcrMlWyR3Z2iG63NJylnsPSUFAzfBo3xWBoup13o3DzEbYBIBa';
   const imgObj = await fetch(
-    'https://api.pexels.com/v1/search?query=night nature landscape&orientation=landscape&per_page=15',
+    'https://api.pexels.com/v1/search?query=night city landscape&orientation=landscape&per_page=15',
     {
       headers: {
         Authorization: definitlyNotSecretApiKey,
