@@ -6,6 +6,9 @@
 body {
   height: 100vh;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .background {
   position: relative;
@@ -39,8 +42,23 @@ body {
   text-align: center;
   color: #363636;
   background-color: #fff;
-  transition: .3s scale;
+  transition: 0.3s scale;
   &:hover {
-    scale: 1.05;
+    scale: 1.1;
   }
+}
+.player {
+  display: grid;
+  grid-template-areas:
+    'title title title'
+    'last pause next';
+}
+.player button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+.song-title {
+  grid-area: title;
 }
