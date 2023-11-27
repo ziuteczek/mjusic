@@ -7,6 +7,7 @@ const lastSongBtn = document.querySelector('.last-song');
 const nextSongBtn = document.querySelector('.next-song');
 const playBtn = document.querySelector('#play-pause');
 const playIcon = playBtn.querySelector('#play-pause__icon');
+const songTitle = document.querySelector(".song-title");
 
 const songs = [];
 let currSongIndex = 0;
@@ -30,29 +31,62 @@ songInput.addEventListener('change', function (e) {
 });
 playBtn.addEventListener('click', function (e) {
   e.preventDefault();
-  const pause = playIcon.classList.contains('fa-play');
-  handlePlayIcon(pause);
+  if (songs.length === 0) {
+    alert("There are no songs to play");
+    return;
+  };
+  playPause();
 });
 nextSongBtn.addEventListener('click', function (e) {
   e.preventDefault();
-  currSongIndex = currSongIndex >= songs.length ? 0 : currSongIndex + 1;
-  console.log(currSongIndex);
+  if (songs.length === 0) {
+    alert("There are no songs to play");
+    return;
+  };
+  nextSong();
 });
 lastSongBtn.addEventListener('click', function (e) {
   e.preventDefault();
-  currSongIndex = currSongIndex === 0 ? 0 : currSongIndex - 1;
-  console.log(currSongIndex);
+  if (songs.length === 0) {
+    alert("There are no songs to play");
+    return;
+  };
+  lastSong();
 });
-function playSong (song) {
-  audioPlayer.src = song.URL;
-  audioPlayer.currentTime = 0;
+
+function nextSong() {
+  currSongIndex = currSongIndex === songs.length - 1 ? 0 : currSongIndex + 1;
+  playSong(songs[currSongIndex]);
+  console.log(currSongIndex);
 }
-function handlePlayIcon(toPause) {
+function lastSong() {
+  currSongIndex = currSongIndex === 0 ? 0 : currSongIndex - 1;
+  playSong(songs[currSongIndex]);
+  console.log(currSongIndex);
+}
+
+const playSong = (song) => {
+  audioPlayer.src = song.URL;
+  songTitle.textContent = song.name;
+  audioPlayer.currentTime = 0;
+  audioPlayer.play();
+};
+function handlePlayIcon() {
+  const toPause = playIcon.classList.contains('fa-play');
   if (toPause) {
     playIcon.classList.remove('fa-play');
     playIcon.classList.add('fa-pause');
   } else {
     playIcon.classList.remove('fa-pause');
     playIcon.classList.add('fa-play');
+  }
+}
+const playPause = () => {
+  handlePlayIcon();
+  if (audioPlayer.paused) {
+    audioPlayer.play();
+  }
+  else {
+    audioPlayer.pause();
   }
 }
