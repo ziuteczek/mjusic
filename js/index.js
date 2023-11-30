@@ -6,7 +6,7 @@ const songInput = document.querySelector('.audio-input');
 const lastSongBtn = document.querySelector('.last-song');
 const nextSongBtn = document.querySelector('.next-song');
 const playBtn = document.querySelector('#play-pause');
-const playIcon = playBtn.querySelector('#play-pause__icon');
+const playIcon = document.querySelector('#play-pause__icon');
 const songTitle = document.querySelector(".song-title");
 
 const songs = [];
@@ -17,7 +17,17 @@ async function newBg() {
   console.log(bgObj.src.original);
   document.body.style.backgroundImage = `url(${bgObj.src.original})`;
 }
-// newBg();
+newBg();
+const createAlert = (title,timeout) => {
+  const alertEl = document.createElement("div");
+  alertEl.innerHTML = `
+  <div class="alert">
+  <h3>${title}</h3>
+  <div class="loadbar"></div>
+  </div>`
+  document.body.append(alertEl);
+  setTimeout(() => alertEl.remove(),timeout * 1000)
+}
 songInput.addEventListener('change', function (e) {
   e.preventDefault();
   const songsToAdd = [...this.files];
@@ -32,7 +42,7 @@ songInput.addEventListener('change', function (e) {
 playBtn.addEventListener('click', function (e) {
   e.preventDefault();
   if (songs.length === 0) {
-    alert("There are no songs to play");
+    createAlert("There are no songs to play!",5);
     return;
   };
   playPause();
@@ -40,7 +50,7 @@ playBtn.addEventListener('click', function (e) {
 nextSongBtn.addEventListener('click', function (e) {
   e.preventDefault();
   if (songs.length === 0) {
-    alert("There are no songs to play");
+    createAlert("There are no songs to play!",5);
     return;
   };
   nextSong();
@@ -48,7 +58,7 @@ nextSongBtn.addEventListener('click', function (e) {
 lastSongBtn.addEventListener('click', function (e) {
   e.preventDefault();
   if (songs.length === 0) {
-    alert("There are no songs to play");
+    createAlert("There are no songs to play!",5);
     return;
   };
   lastSong();

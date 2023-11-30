@@ -3,12 +3,20 @@
   padding: 0;
   box-sizing: border-box;
 }
+:root {
+  --font-color: #fff;
+}
+html {
+  font-size: 62.5%;
+}
 body {
   height: 100vh;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: 'Shadows Into Light', cursive;
+  color: #fff;
 }
 .background {
   position: relative;
@@ -30,6 +38,7 @@ body {
 .input-btn {
   position: absolute;
   cursor: pointer;
+  font-family:Arial, Helvetica, sans-serif;
   bottom: 0;
   right: 0;
   margin-bottom: 5%;
@@ -52,6 +61,10 @@ body {
   grid-template-areas:
     'title title title'
     'last pause next';
+  backdrop-filter: blur(5px);
+  padding:30px 60px;
+  border: 2px solid #fff;
+  border-radius: 25px;
 }
 .player button {
   background: none;
@@ -60,5 +73,52 @@ body {
   font-family: inherit;
 }
 .song-title {
+  font-size: 4rem;
   grid-area: title;
+}
+button {
+  color: inherit;
+  font-size: 3em;
+  transition: font-size .3s;
+}
+.song-btn:hover {
+  font-size: 3.5em;
+}
+.alert {
+  position: absolute;
+  overflow: hidden;
+  font-family: 'Roboto', sans-serif;
+  grid-template-rows: 1fr 1fr 5px;
+  font-size: 1.5rem;
+  color: black;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px 10px;
+  padding-top: 10px;
+  top: 0;
+  margin-top: 50px;
+  animation: alert-apear 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  padding-bottom: 0;
+}
+.alert .loadbar {
+  height: 5px;
+  background-color: #363636;
+  animation: loadBar 5s linear;
+  margin-top: 5px;
+}
+@keyframes alert-apear {
+  from {
+   transform: translateY(-200%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes loadBar {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
 }
