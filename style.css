@@ -15,8 +15,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Shadows Into Light', cursive;
+  font-family: "Shadows Into Light", cursive;
   color: #fff;
+}
+:focus {
+  outline: none;
 }
 .background {
   position: relative;
@@ -26,7 +29,7 @@ body {
 }
 .background::before {
   position: absolute;
-  content: '';
+  content: "";
   z-index: -4;
   height: 100%;
   width: 100%;
@@ -38,7 +41,7 @@ body {
 .input-btn {
   position: absolute;
   cursor: pointer;
-  font-family:Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   bottom: 0;
   right: 0;
   margin-bottom: 5%;
@@ -59,10 +62,10 @@ body {
 .player {
   display: grid;
   grid-template-areas:
-    'title title title'
-    'last pause next';
+    "title title title"
+    "last pause next";
   backdrop-filter: blur(5px);
-  padding:30px 60px;
+  padding: 30px 60px;
   border: 2px solid #fff;
   border-radius: 25px;
 }
@@ -79,7 +82,7 @@ body {
 button {
   color: inherit;
   font-size: 3em;
-  transition: font-size .3s;
+  transition: font-size 0.3s;
 }
 .song-btn:hover {
   font-size: 3.5em;
@@ -87,7 +90,7 @@ button {
 .alert {
   position: absolute;
   overflow: hidden;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 1.5rem;
   color: black;
   background-color: #fff;
@@ -108,9 +111,35 @@ button {
   margin-top: 5px;
   justify-self: center;
 }
+.insert-song {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 10;
+  padding: 1em;
+  font-family: "Roboto", sans-serif;
+  height: 200px;
+  width: 400px;
+  background-color: #fff;
+  border-radius: 25px;
+}
+.insert-song h3 {
+  font-size: 3rem;
+  color: black;
+}
+.insert-song input {
+  font-family: "Shadows Into Light", cursive;
+  font-size:  2rem;
+  border: none;
+  border-bottom: 2px solid black;
+  text-align: center;
+  letter-spacing: 3px;
+}
 @keyframes alert-apear {
   from {
-   transform: translateY(-200%);
+    transform: translateY(-200%);
   }
   to {
     transform: translateY(0);

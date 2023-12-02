@@ -7,7 +7,7 @@ const lastSongBtn = document.querySelector('.last-song');
 const nextSongBtn = document.querySelector('.next-song');
 const playBtn = document.querySelector('#play-pause');
 const playIcon = document.querySelector('#play-pause__icon');
-const songTitle = document.querySelector(".song-title");
+const songTitle = document.querySelector('.song-title');
 
 const songs = [];
 let currSongIndex = 0;
@@ -18,16 +18,16 @@ async function newBg() {
   document.body.style.backgroundImage = `url(${bgObj.src.original})`;
 }
 newBg();
-const createAlert = (title,timeout) => {
-  const alertEl = document.createElement("div");
+const createAlert = (title, timeout) => {
+  const alertEl = document.createElement('div');
   alertEl.innerHTML = `
   <div class="alert">
   <h3>${title}</h3>
   <div class="loadbar"></div>
-  </div>`
+  </div>`;
   document.body.append(alertEl);
-  setTimeout(() => alertEl.remove(),timeout * 1000)
-}
+  setTimeout(() => alertEl.remove(), timeout * 1000);
+};
 songInput.addEventListener('change', function (e) {
   e.preventDefault();
   const songsToAdd = [...this.files];
@@ -36,34 +36,39 @@ songInput.addEventListener('change', function (e) {
       name: song.name,
       URL: URL.createObjectURL(song),
     };
+    insertSongData();
     songs.push(songObj);
   });
 });
 playBtn.addEventListener('click', function (e) {
   e.preventDefault();
-  if (songs.length === 0) {
-    createAlert("There are no songs to play!",5);
+  if (isSongsEmpty()) {
     return;
-  };
+  }
   playPause();
 });
 nextSongBtn.addEventListener('click', function (e) {
   e.preventDefault();
-  if (songs.length === 0) {
-    createAlert("There are no songs to play!",5);
+  if (isSongsEmpty()) {
     return;
-  };
+  }
   nextSong();
 });
 lastSongBtn.addEventListener('click', function (e) {
   e.preventDefault();
-  if (songs.length === 0) {
-    createAlert("There are no songs to play!",5);
+  if (isSongsEmpty()) {
     return;
-  };
+  }
   lastSong();
 });
-
+const isSongsEmpty = () => {
+  if (songs.length === 0) {
+    createAlert('There are no songs to play!', 5);
+    return true;
+  } else {
+    return false;
+  }
+};
 function nextSong() {
   currSongIndex = currSongIndex === songs.length - 1 ? 0 : currSongIndex + 1;
   playSong(songs[currSongIndex]);
@@ -95,8 +100,28 @@ const playPause = () => {
   handlePlayIcon();
   if (audioPlayer.paused) {
     audioPlayer.play();
-  }
-  else {
+  } else {
     audioPlayer.pause();
   }
+};
+function insertSongData(fileName) {
+  document.body.style.backdropFilter = "blur(5px)";
+  const insertEl = document.createElement("div");
+  insertEl.classList.add("insert-song");
+  document.body.append(insertEl);
+  insertEl.innerHTML = `
+  <h3>Song name</h3>
+  <input type="text">
+  <button class="submit">Name it</button>
+  <button class="close">X</button>`
+  const input = insertEl.querySelector("input");
+  const closeBtn = insertEl.querySelector(".close");
+  const submitBtn = insertEl.querySelector(".submit");
+
+  const closeModal = (modal) => {
+    document.body.style.backdropFilter = "";
+    modal.remove();
+  }
+
+  closeBtn.addEventListener("click",()=>closeModal(insertEl));
 }
