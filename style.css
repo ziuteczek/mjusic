@@ -88,7 +88,6 @@ button {
   position: absolute;
   overflow: hidden;
   font-family: 'Roboto', sans-serif;
-  grid-template-rows: 1fr 1fr 5px;
   font-size: 1.5rem;
   color: black;
   background-color: #fff;
@@ -101,10 +100,13 @@ button {
   padding-bottom: 0;
 }
 .alert .loadbar {
+  width: (100% + 20px);
+  margin-left: -10px;
   height: 5px;
   background-color: #363636;
   animation: loadBar 5s linear;
   margin-top: 5px;
+  justify-self: center;
 }
 @keyframes alert-apear {
   from {
@@ -116,7 +118,7 @@ button {
 }
 @keyframes loadBar {
   from {
-    width: 100%;
+    width: calc(100% + 20px);
   }
   to {
     width: 0%;
