@@ -105,23 +105,25 @@ const playPause = () => {
   }
 };
 function insertSongData(fileName) {
-  document.body.style.backdropFilter = "blur(5px)";
+  const blurBg = document.createElement("div");
+  blurBg.classList.add("blur")
+  document.body.append(blurBg);
   const insertEl = document.createElement("div");
   insertEl.classList.add("insert-song");
   document.body.append(insertEl);
   insertEl.innerHTML = `
+  <button class="close">x</button>
   <h3>Song name</h3>
   <input type="text">
-  <button class="submit">Name it</button>
-  <button class="close">X</button>`
+  <button class="submit">Name it</button>`
   const input = insertEl.querySelector("input");
   const closeBtn = insertEl.querySelector(".close");
   const submitBtn = insertEl.querySelector(".submit");
 
-  const closeModal = (modal) => {
-    document.body.style.backdropFilter = "";
-    modal.remove();
+  const closeModal = (...toRemove) => {
+    toRemove.forEach(e => e.remove());
   }
 
-  closeBtn.addEventListener("click",()=>closeModal(insertEl));
+  closeBtn.addEventListener("click",()=>closeModal(insertEl,blurBg));
+  blurBg.addEventListener("click",()=>closeModal(insertEl,blurBg));
 }
