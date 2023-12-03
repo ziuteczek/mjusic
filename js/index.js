@@ -31,12 +31,11 @@ const createAlert = (title, timeout) => {
 songInput.addEventListener('change', function (e) {
   e.preventDefault();
   const songsToAdd = [...this.files];
-  songsToAdd.forEach((song) => {
+  songsToAdd.forEach(async function(song) {
     const songObj = {
-      name: song.name,
+      name: await insertSongData(song.name),
       URL: URL.createObjectURL(song),
     };
-    insertSongData();
     songs.push(songObj);
   });
 });
@@ -120,10 +119,16 @@ function insertSongData(fileName) {
   const closeBtn = insertEl.querySelector(".close");
   const submitBtn = insertEl.querySelector(".submit");
 
+  input.value = fileName;
   const closeModal = (...toRemove) => {
     toRemove.forEach(e => e.remove());
   }
-
   closeBtn.addEventListener("click",()=>closeModal(insertEl,blurBg));
   blurBg.addEventListener("click",()=>closeModal(insertEl,blurBg));
+  return new Promise(resolve=>{
+    submitBtn.addEventListener("click",()=>{
+      closeModal(insertEl,blurBg);
+      resolve(input.value);
+    })
+  })
 }
